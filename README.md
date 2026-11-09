@@ -1,5 +1,10 @@
 # Nixet SDK
 
+[![npm install @nixet/sdk](https://img.shields.io/npm/v/@nixet/sdk?style=for-the-badge&logo=npm&label=npm%20install%20%40nixet%2Fsdk&color=CB3837)](https://www.npmjs.com/package/@nixet/sdk)
+[![Install in Claude Code](https://img.shields.io/badge/Install_in-Claude_Code-D97757?style=for-the-badge&logo=claude&logoColor=white)](#claude-code-and-codex-plugin)
+[![Install in Codex](https://img.shields.io/badge/Install_in-Codex-000000?style=for-the-badge&logo=openai&logoColor=white)](#claude-code-and-codex-plugin)
+[![MIT license](https://img.shields.io/npm/l/@nixet/sdk?style=for-the-badge)](./LICENSE)
+
 Official TypeScript SDK and editor plugin for [Nixet](https://nixet.ai), the API
 for building, running and inspecting AI agents.
 

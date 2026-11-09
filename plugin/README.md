@@ -1,5 +1,8 @@
 # Nixet plugin
 
+[![Install in Claude Code](https://img.shields.io/badge/Install_in-Claude_Code-D97757?style=for-the-badge&logo=claude&logoColor=white)](#install)
+[![Install in Codex](https://img.shields.io/badge/Install_in-Codex-000000?style=for-the-badge&logo=openai&logoColor=white)](#install)
+
 Skills for building, running and debugging Nixet agents, for Claude Code and
 Codex. Both read the same `skills/` and `agents/` directories; only the manifest
 location differs.
@@ -43,6 +46,10 @@ export NIXET_API_KEY="nxt_…"
 | `nixet-secrets` | Credentials an agent needs, written once and never read back |
 | `nixet-skills` | Package expertise once, share it across agents |
 | `nixet-knowledge` | Your own documents, and why one is not searchable yet |
+| `nixet-documents` | Convert PDF, Word, Excel and more to Markdown, or file them into knowledge |
+| `nixet-guardrails` | Scrub or block what an agent is given, says, and gets back from tools |
+| `nixet-connections` | Each end user's own credential, so an agent acts as that user |
+| `nixet-variables` | Fill per-run values into instructions with `{{placeholders}}` |
 
 And a subagent, `nixet:nixet-agent-builder`, which takes a requirement through to
 a published version and a verified run.

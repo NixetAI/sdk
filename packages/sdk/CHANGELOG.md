@@ -5,6 +5,20 @@ All notable changes to `@nixet/sdk` are recorded here. The format follows
 [Semantic Versioning](https://semver.org/). Until 1.0.0, a minor version may
 contain breaking changes; they are always listed under **Changed**.
 
+## [0.1.2] — 2026-11-10
+
+### Changed
+
+- The public source moved to [github.com/nixetai/sdk](https://github.com/nixetai/sdk).
+  The `repository` and `bugs` links and the plugin install commands point
+  there. 0.1.1 linked to the previous location, which redirects.
+
+### Added
+
+- Install buttons for npm, Claude Code and Codex at the top of the README.
+- The plugin section lists its new skills: per-user connections, guardrails,
+  variables and document conversion.
+
 ## [0.1.1] — 2026-11-10
 
 ### Added
@@ -13,7 +27,7 @@ contain breaking changes; they are always listed under **Changed**.
 - `api.md`: every method, its HTTP request, parameters and return type.
 - `CHANGELOG.md` and `SECURITY.md`.
 - A section on installing the Nixet plugin for Claude Code and Codex.
-- `repository` and `bugs` links to the public source at github.com/nixetai/sdk.
+- `repository` and `bugs` links to the public source.
 
 ### Fixed
 

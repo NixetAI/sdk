@@ -34,6 +34,12 @@ await nixet.agents.create({
   instructions?: string,
   model?: ModelConfig,
   tools?: (string | { name: string })[],
+  skills?: string[],
+  mcpServers?: string[],
+  toolPolicies?: Record<string, ToolPolicy>,
+  knowledgeCollections?: string[],
+  variables?: string[],
+  guardrails?: CreateVersionParams["guardrails"], // see agents.versions
 }): Promise<CreatedAgent>          // Agent & { version?: AgentVersion }
 
 await nixet.agents.retrieve(agentId): Promise<Agent>
@@ -54,6 +60,14 @@ await nixet.agents.versions.create(agentId, {
   mcpServers?: string[],
   toolPolicies?: Record<string, ToolPolicy>,
   knowledgeCollections?: string[], // by name; searched at run time
+  variables?: string[],            // {{placeholders}} in instructions; must match exactly
+  guardrails?: {                   // workspace guardrails, by name, per stage
+    input?: string[],
+    output?: string[],
+    tool_result?: string[],
+    mode?: "run_all" | "fail_fast",              // default run_all
+    on_block?: "return_message" | "error",       // default return_message
+  },
   redaction?: RedactionPolicyInput,
   publish?: boolean,               // default true
 }): Promise<AgentVersion>
@@ -63,7 +77,8 @@ await nixet.agents.versions.list(agentId, { limit?, offset? }): Promise<Page<Age
 ```
 
 `AgentVersion` — `id`, `agent_id`, `version`, `instructions`, `model`, `tools`,
-`skills`, `redaction`, `mcp_servers`, `tool_policies`, `digest`, `created_at`.
+`skills`, `redaction`, `mcp_servers`, `tool_policies`, `knowledge_collections`,
+`variables`, `guardrails`, `digest`, `created_at`.
 
 ## runs
 
@@ -73,6 +88,9 @@ await nixet.runs.create(agentId, {
   version?: string,                // defaults to the published version
   provider?: "nix" | "openai" | "anthropic",
   sessionId?: string,
+  userId?: string,                 // whose memory and per-user connections apply
+  variables?: Record<string, string>, // every declared variable, nothing else
+  mcpServers?: string[],           // a subset of the version's servers
 }): Promise<Run>
 
 await nixet.runs.stream(agentId, params): Promise<RunStream>
@@ -86,9 +104,9 @@ await nixet.runs.events(runId, {
 }): Promise<Page<RunEvent>>
 ```
 
-`Run` — `id`, `agent_id`, `agent_version`, `version_digest`, `status`,
-`provider`, `input`, `output`, `error`, `usage`, `session_id`, `created_at`,
-`completed_at`.
+`Run` — `id`, `agent_id`, `agent_version`, `variables`, `version_digest`,
+`status`, `provider`, `input`, `output`, `error`, `usage`, `redaction`,
+`latency_ms`, `cost_usd`, `trace_id`, `session_id`, `created_at`, `completed_at`.
 
 ## RunStream
 
@@ -102,8 +120,11 @@ for await (const event of stream) { … }
 
 One reader per stream. A second read throws rather than returning nothing.
 
-Event types: `run.started`, `run.output`, `run.tool.started`,
-`run.tool.completed`, `run.completed`, `run.failed`.
+Common event types: `run.started`, `run.output`, `run.model.started`,
+`run.model.completed`, `run.tool.started`, `run.tool.completed`,
+`run.tool.failed`, `run.knowledge.started`, `run.knowledge.completed`,
+`run.completed`, `run.failed`, `run.cancelled`. The full union is `RunEventType`
+in the SDK's types.
 
 ## skills
 
@@ -380,8 +401,8 @@ is the honest answer to "can my agent use this yet". Poll `retrieve`.
 ingested, so replacing a document means ingesting it again, which increments
 `generation`.
 
-Uploading a file is `POST /v1/knowledge/sources/upload` as multipart, which the
-SDK does not wrap. **A scanned PDF fails**: no OCR engine is built, and the
+To add a file, use `nixet.documents.convert({ file, collection })`, which
+converts it and files it as a source in one call. **A scanned PDF fails**: no OCR engine is built, and the
 error names the pages. Read the `nixet-knowledge` skill before relying on either.
 
 ## ToolPolicies
@@ -455,6 +476,65 @@ compliance control.
 Both accept `temperature` and `max_tokens`. `tier` exists only on `nix`;
 `model` is required on the others, and the union enforces it at compile time.
 
+## documents
+
+```ts
+await nixet.documents.convert({
+  file: Blob | Uint8Array,         // up to 20 MB; format read from content
+  filename?: string,               // needed for bytes; matters for CSV
+  password?: string,               // opens a protected PDF; never stored
+  collection?: string,             // also store as a knowledge source
+  title?: string,                  // source title when storing
+  signal?: AbortSignal,            // here, not as a second argument
+}): Promise<DocumentConversionResult>
+```
+
+`DocumentConversionResult` — `markdown`, `bytes`, `page_count` (null for a
+spreadsheet), `ocr_pages`, `source` (null unless `collection` was given,
+otherwise `{ id, collection, status }`). Storing needs `knowledge:write`. A
+password and a collection cannot be combined. See `nixet-documents`.
+
+## guardrails
+
+```ts
+await nixet.guardrails.create({   // CreateGuardrailParams; wire field names
+  name: string,                    // lowercase, numbers, hyphens; pinned by versions
+  description?: string,
+  stage: "input" | "output" | "tool_result",
+  action: "allow" | "modify" | "warn" | "block",
+  patterns?: { match: string, replace?: string }[], // case-insensitive regex, max 50
+  detector?: "pii" | "topics" | "length",           // instead of patterns
+  topics?: string[],               // for the topics detector
+  max_characters?: number,         // for the length detector
+  message?: string,                // shown when the guard blocks
+}): Promise<Guardrail>
+
+await nixet.guardrails.retrieve(id): Promise<Guardrail>
+await nixet.guardrails.list({ name?, stage?, limit?, offset? }): Promise<Page<Guardrail>>
+```
+
+No `update` and no `delete` through the API. See `nixet-guardrails`.
+
+## connections
+
+```ts
+await nixet.connections.create({
+  userId: string,                  // usr_…
+  server: string,                  // an MCP server with auth { type: "per_user" }
+  value: string,                   // the credential; never returned
+  expiresAt?: string,
+  refreshValue?: string,
+}): Promise<Connection>
+
+await nixet.connections.retrieve(id): Promise<Connection>
+await nixet.connections.list({ userId?, server?, status?, limit?, offset? }): Promise<Page<Connection>>
+await nixet.connections.revoke(id): Promise<Connection>   // erases the credential, keeps the row
+```
+
+`Connection` — `id`, `user_id`, `server`, `scheme`, `status`
+(`pending` · `active` · `expired` · `revoked`), `expires_at`, `last_used_at`,
+`created_at`, `updated_at`. See `nixet-connections`.
+
 ## Not in the SDK
 
 Endpoints that exist in the API with no client method. Call them with `fetch`,
@@ -463,11 +543,8 @@ and do not invent a resource for them:
 | Endpoint | Why |
 | --- | --- |
 | `GET /v1/usage` | Reads the allowance. Billing is an account concern rather than an agent-building one, so it has no skill and no resource |
-| `POST /v1/knowledge/sources/upload` | Multipart; bytes do not belong in JSON |
+| `POST /v1/knowledge/sources/upload` | Multipart. Use `documents.convert({ file, collection })` instead, which converts and stores in one call |
 | `POST /v1/billing/checkout`, `/portal` | Console-only. An API key is refused with a `403` |
-
-A run's `user_id` is accepted by the API but `runs.create` does not take a
-`userId`, so attribute a single-shot run through a conversation instead.
 
 ## Errors
 

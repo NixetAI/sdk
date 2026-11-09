@@ -46,6 +46,9 @@ A key is bound to one workspace and environment, so nothing else is configured.
 | `nixet.tools` | `retrieve` `list` — read-only; discovered, not authored |
 | `nixet.knowledge.collections` | `create` `retrieve` `list` `del` — no `update` |
 | `nixet.knowledge.sources` | `create` `retrieve` `list` `del` — no `update` |
+| `nixet.documents` | `convert` — Markdown back; stores only when `collection` is named |
+| `nixet.guardrails` | `create` `retrieve` `list` — no `update`, no `delete` |
+| `nixet.connections` | `create` `retrieve` `list` `revoke` — `api_key` servers only, for now |
 
 There is no `nixet.usage` or `nixet.billing`. `GET /v1/usage` exists in the API
 and has no client method, so reading usage is a `fetch`.

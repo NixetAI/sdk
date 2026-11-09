@@ -17,6 +17,10 @@ Two jobs, and they are separate on purpose:
 - **Registering** a server says where your tools are and how to authenticate.
 - **Policy** says what an agent may do with each tool. That is on the version.
 
+A server's `auth` names a workspace secret (see `nixet-secrets`), or is
+`{ type: "per_user", scheme }` when every end user connects their own account
+to the same server (see `nixet-connections`).
+
 ## The thing to get right
 
 A tool carries `tags` and a `default_policy`. They look similar and are not the

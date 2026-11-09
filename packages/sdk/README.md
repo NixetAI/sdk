@@ -1,7 +1,9 @@
 # Nixet TypeScript SDK
 
-[![npm](https://img.shields.io/npm/v/@nixet/sdk.svg)](https://www.npmjs.com/package/@nixet/sdk)
-[![license](https://img.shields.io/npm/l/@nixet/sdk.svg)](./LICENSE)
+[![npm install @nixet/sdk](https://img.shields.io/npm/v/@nixet/sdk?style=for-the-badge&logo=npm&label=npm%20install%20%40nixet%2Fsdk&color=CB3837)](https://www.npmjs.com/package/@nixet/sdk)
+[![Install in Claude Code](https://img.shields.io/badge/Install_in-Claude_Code-D97757?style=for-the-badge&logo=claude&logoColor=white)](#use-with-claude-code-and-codex)
+[![Install in Codex](https://img.shields.io/badge/Install_in-Codex-000000?style=for-the-badge&logo=openai&logoColor=white)](#use-with-claude-code-and-codex)
+[![MIT license](https://img.shields.io/npm/l/@nixet/sdk?style=for-the-badge)](./LICENSE)
 
 The official TypeScript and JavaScript client for the [Nixet](https://nixet.ai) agent API.
 
@@ -835,7 +837,8 @@ const { Nixet } = require("@nixet/sdk");     // CommonJS
 The Nixet plugin teaches your coding agent this SDK, so it looks calls up
 rather than guessing them. It adds skills for building an agent, running one,
 debugging a run, and working with conversations, memory, tasks, MCP tools,
-secrets, skills and knowledge.
+per-user connections, guardrails, variables, document conversion, secrets,
+skills and knowledge.
 
 **Claude Code**
 
