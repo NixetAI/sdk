@@ -95,5 +95,5 @@ immediately. Creating such a conversation fails with a `400`.
 ## When the SDK does not cover it
 
 The SDK wraps the public API, which is documented at
-[the SDK API reference](https://github.com/nixetio/nixet-sdk/blob/main/packages/sdk/api.md). If a capability exists in the API but
+[the SDK API reference](https://github.com/nixetai/sdk/blob/main/packages/sdk/api.md). If a capability exists in the API but
 not in the SDK, say so plainly instead of writing a method that will not resolve.

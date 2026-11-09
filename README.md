@@ -44,14 +44,14 @@ with real calls rather than guesses.
 **Claude Code**
 
 ```bash
-claude plugin marketplace add nixetio/nixet-sdk
+claude plugin marketplace add nixetai/sdk
 claude plugin install nixet@nixet
 ```
 
 **Codex**
 
 ```bash
-codex plugin marketplace add nixetio/nixet-sdk
+codex plugin marketplace add nixetai/sdk
 codex plugin install nixet@nixet
 ```
 

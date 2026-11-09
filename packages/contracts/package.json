@@ -32,11 +32,11 @@
   "homepage": "https://nixet.ai",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nixetio/nixet-sdk.git",
+    "url": "git+https://github.com/nixetai/sdk.git",
     "directory": "packages/contracts"
   },
   "bugs": {
-    "url": "https://github.com/nixetio/nixet-sdk/issues"
+    "url": "https://github.com/nixetai/sdk/issues"
   },
   "keywords": [
     "nixet",

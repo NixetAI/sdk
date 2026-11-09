@@ -840,14 +840,14 @@ secrets, skills and knowledge.
 **Claude Code**
 
 ```bash
-claude plugin marketplace add nixetio/nixet-sdk
+claude plugin marketplace add nixetai/sdk
 claude plugin install nixet@nixet
 ```
 
 **Codex**
 
 ```bash
-codex plugin marketplace add nixetio/nixet-sdk
+codex plugin marketplace add nixetai/sdk
 codex plugin install nixet@nixet
 ```
 
@@ -861,7 +861,7 @@ answers support questions."*
 
 ## Support
 
-- Source and issues: [github.com/nixetio/nixet-sdk](https://github.com/nixetio/nixet-sdk)
+- Source and issues: [github.com/nixetai/sdk](https://github.com/nixetai/sdk)
 - Website: [nixet.ai](https://nixet.ai)
 - Console: [console.nixet.ai](https://console.nixet.ai)
 - Security issues: see [SECURITY.md](./SECURITY.md)

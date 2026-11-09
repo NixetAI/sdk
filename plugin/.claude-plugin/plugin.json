@@ -9,7 +9,7 @@
     "url": "https://nixet.ai"
   },
   "homepage": "https://nixet.ai",
-  "repository": "https://github.com/nixetio/nixet-sdk",
+  "repository": "https://github.com/nixetai/sdk",
   "license": "MIT",
   "keywords": [
     "nixet",

@@ -13,7 +13,7 @@ contain breaking changes; they are always listed under **Changed**.
 - `api.md`: every method, its HTTP request, parameters and return type.
 - `CHANGELOG.md` and `SECURITY.md`.
 - A section on installing the Nixet plugin for Claude Code and Codex.
-- `repository` and `bugs` links to the public source at github.com/nixetio/nixet-sdk.
+- `repository` and `bugs` links to the public source at github.com/nixetai/sdk.
 
 ### Fixed
 
