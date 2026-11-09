@@ -1,6 +1,6 @@
 {
   "name": "@nixet/sdk",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Official TypeScript SDK for the Nixet agent API: agents, versions, runs, streaming, tasks, memory, knowledge, MCP tools and guardrails.",
   "license": "MIT",
   "main": "dist/cjs/index.js",
@@ -53,7 +53,7 @@
     "url": "https://github.com/nixetai/sdk/issues"
   },
   "dependencies": {
-    "@nixet/contracts": "^0.1.1"
+    "@nixet/contracts": "^0.1.2"
   },
   "publishConfig": {
     "access": "public"
