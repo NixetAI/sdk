@@ -1,0 +1,19 @@
+{
+  "name": "nixet-sdk-workspace",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/contracts",
+    "packages/sdk"
+  ],
+  "scripts": {
+    "build": "npm run build -w @nixet/contracts && npm run build -w @nixet/sdk",
+    "typecheck": "npm run build"
+  },
+  "devDependencies": {
+    "typescript": "6.0.3"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

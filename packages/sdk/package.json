@@ -1,0 +1,61 @@
+{
+  "name": "@nixet/sdk",
+  "version": "0.1.1",
+  "description": "Official TypeScript SDK for the Nixet agent API: agents, versions, runs, streaming, tasks, memory, knowledge, MCP tools and guardrails.",
+  "license": "MIT",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/cjs/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/cjs/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "api.md",
+    "CHANGELOG.md",
+    "SECURITY.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "rm -rf dist && tsc -p tsconfig.json && tsc -p tsconfig.esm.json && node ../../scripts/build-esm.mjs",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "nixet",
+    "agents",
+    "ai",
+    "ai-agents",
+    "llm",
+    "sdk",
+    "mcp",
+    "rag",
+    "streaming",
+    "typescript"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "typescript": "6.0.3"
+  },
+  "homepage": "https://nixet.ai",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nixetio/nixet-sdk.git",
+    "directory": "packages/sdk"
+  },
+  "bugs": {
+    "url": "https://github.com/nixetio/nixet-sdk/issues"
+  },
+  "dependencies": {
+    "@nixet/contracts": "^0.1.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

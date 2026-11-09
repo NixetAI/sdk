@@ -1,0 +1,34 @@
+{
+  "name": "nixet",
+  "version": "0.1.0",
+  "description": "Build, run and debug Nixet agents from your editor.",
+  "author": {
+    "name": "Nixet",
+    "url": "https://nixet.ai"
+  },
+  "homepage": "https://nixet.ai",
+  "license": "MIT",
+  "keywords": [
+    "nixet",
+    "agents",
+    "ai",
+    "sdk"
+  ],
+  "interface": {
+    "displayName": "Nixet",
+    "shortDescription": "Build and run AI agents through the Nixet API",
+    "longDescription": "Create agents, publish immutable versions and run them with streaming output. The plugin adds skills for building an agent, running one, and diagnosing a run that behaved unexpectedly. Requires a Nixet API key, created in the console.",
+    "developerName": "Nixet",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://nixet.ai",
+    "defaultPrompt": [
+      "Build me a Nixet agent that answers support questions",
+      "Run my agent with streaming output",
+      "Why did my agent ignore its tools?"
+    ]
+  }
+}

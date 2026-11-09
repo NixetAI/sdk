@@ -1,0 +1,49 @@
+{
+  "name": "@nixet/contracts",
+  "version": "0.1.1",
+  "description": "Public Nixet request, response and event schemas shared by the API, clients and bindings.",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/cjs/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/cjs/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json && tsc -p tsconfig.esm.json && node ../../scripts/build-esm.mjs",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "zod": "^4.0.0"
+  },
+  "devDependencies": {
+    "typescript": "6.0.3"
+  },
+  "license": "MIT",
+  "homepage": "https://nixet.ai",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nixetio/nixet-sdk.git",
+    "directory": "packages/contracts"
+  },
+  "bugs": {
+    "url": "https://github.com/nixetio/nixet-sdk/issues"
+  },
+  "keywords": [
+    "nixet",
+    "agents",
+    "schemas"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

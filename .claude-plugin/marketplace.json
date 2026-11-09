@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-marketplace.json",
+  "name": "nixet",
+  "owner": {
+    "name": "Nixet",
+    "url": "https://nixet.ai"
+  },
+  "metadata": {
+    "description": "Official Nixet plugins.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "nixet",
+      "source": "./plugin",
+      "displayName": "Nixet",
+      "description": "Build, run and debug Nixet agents from your editor.",
+      "category": "Developer Tools",
+      "keywords": ["nixet", "agents", "ai", "sdk"]
+    }
+  ]
+}
